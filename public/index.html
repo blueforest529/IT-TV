@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <title>미림 소프트웨어 쇼</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+    <script type="text/javascript" src="js/TweenMax.min.js"></script>
+    <script type="text/javascript" src="js/jquery.waterwheelCarousel.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.5.2/firebase.js"></script>
+    <link rel="stylesheet" type="text/css" href="message.css">
+    <link rel="stylesheet" type="text/css" href="rank.css">
+    <link rel="stylesheet" type="text/css" href="waterwheelcarousel.css">
+  </head>
+  <script>
+    var config = {
+      apiKey: "AIzaSyAz3QpTrYZR0lWtqAzRzjbA01grcdSgw8A",
+      authDomain: "qrcode-239f0.firebaseapp.com",
+      databaseURL: "https://qrcode-239f0.firebaseio.com",
+      projectId: "qrcode-239f0",
+      storageBucket: "qrcode-239f0.appspot.com",
+      messagingSenderId: "1002112074455"
+    };
+    firebase.initializeApp(config);
+    var database = firebase.database();
+
+    var work = [];
+    for (var i = 0; i < 53; i++) {
+      work[i] = { title: "", cnt : 0, rank: 0 };
+    }
+    var database = firebase.database();
+
+    var id=0;
+    function setRank(){
+      var flagInter = setInterval(function () {
+       if(id > 52){
+         clearInterval(flagInter);
+         id = 0;
+          //순위를 계산
+          for (var i=0; i < 53; i++) {
+            work[i].rank = 0;
+           for (var j = 0; j < 53; j++) {
+            if(work[i].cnt < work[j].cnt){work[i].rank+=1;}
+            else if(work[i].cnt == work[j].cnt){work[j].rank += 1;}
+            }
+          }
+         rankSort();
+       }else{
+         var reviewRef = database.ref("Exhibition/"+id);
+         reviewRef.on('value', function(snapshot){
+          var result = snapshot.val();
+          work[id].cnt = result.cnt * 1;
+          work[id].title = result.display;
+          console.log(work[id].cnt+" "+work[id].title);
+          id++;
+         });
+       }
+     }, 700);
+    }
+
+    function rankSort(){
+     //ranking DB에 집어넣기
+     var k=0; var rank;
+     var eInter = setInterval(function () {
+      if(k > 52){
+        clearInterval(eInter);
+      }else{
+        if(work[k].rank <= 10 && work[k].rank > 0){
+          var newRankRef = database.ref("Rank/"+work[k].rank);
+          var changeRankRef = newRankRef.update({
+              "exhibition": work[k].title
+          });
+          console.log("랭킹 집어넣기 : "+work[k].rank+ "위 " + work[k].title+" "+work[k].cnt);
+        }k++;
+      }
+    }, 1300);
+    }
+
+    setInterval(function () {
+      setRank();
+    }, 100000);
+
+    var resviewListRef;
+    function getList(num, title, display){
+      var titleRef;
+      switch (title) {
+        case 0: titleRef= document.getElementById('item-0');break;
+        case 1: titleRef= document.getElementById('item-1');break;
+        case 2: titleRef= document.getElementById('item-2');break;
+        case 3: titleRef= document.getElementById('item-3');break;
+        case 4: titleRef= document.getElementById('item-4');break;
+        case 5: titleRef= document.getElementById('item-5');break;
+        case 6: titleRef= document.getElementById('item-6');break;
+        case 7: titleRef= document.getElementById('item-7');break;
+        case 8: titleRef= document.getElementById('item-8');break;
+        case 9: titleRef= document.getElementById('item-9');break;
+        case 10: titleRef= document.getElementById('item-10');break;
+        case 11: titleRef= document.getElementById('item-11');break;
+        case 12: titleRef= document.getElementById('item-12');break;
+        case 13: titleRef= document.getElementById('item-13');break;
+        case 14: titleRef= document.getElementById('item-14');break;
+        case 15: titleRef= document.getElementById('item-15');break;
+        case 16: titleRef= document.getElementById('item-16');break;
+        case 17: titleRef= document.getElementById('item-17');break;
+        case 18: titleRef= document.getElementById('item-18');break;
+        case 19: titleRef= document.getElementById('item-19');break;
+        case 20: titleRef= document.getElementById('item-20');break;
+        case 21: titleRef= document.getElementById('item-21');break;
+        case 22: titleRef= document.getElementById('item-22');break;
+        case 23: titleRef= document.getElementById('item-23');break;
+        case 24: titleRef= document.getElementById('item-24');break;
+        case 25: titleRef= document.getElementById('item-25');break;
+        case 26: titleRef= document.getElementById('item-26');break;
+        case 27: titleRef= document.getElementById('item-27');break;
+        case 28: titleRef= document.getElementById('item-28');break;
+        case 29: titleRef= document.getElementById('item-29');break;
+        case 30: titleRef= document.getElementById('item-30');break;
+        case 31: titleRef= document.getElementById('item-31');break;
+        case 32: titleRef= document.getElementById('item-32');break;
+        case 33: titleRef= document.getElementById('item-33');break;
+        case 34: titleRef= document.getElementById('item-34');break;
+        case 35: titleRef= document.getElementById('item-35');break;
+        case 36: titleRef= document.getElementById('item-36');break;
+        case 37: titleRef= document.getElementById('item-37');break;
+        case 38: titleRef= document.getElementById('item-38');break;
+        case 39: titleRef= document.getElementById('item-39');break;
+        case 40: titleRef= document.getElementById('item-40');break;
+        case 41: titleRef= document.getElementById('item-41');break;
+        case 42: titleRef= document.getElementById('item-42');break;
+        case 43: titleRef= document.getElementById('item-43');break;
+        case 44: titleRef= document.getElementById('item-44');break;
+        case 45: titleRef= document.getElementById('item-45');break;
+        case 46: titleRef= document.getElementById('item-46');break;
+        case 47: titleRef= document.getElementById('item-47');break;
+        case 48: titleRef= document.getElementById('item-48');break;
+        case 49: titleRef= document.getElementById('item-49');break;
+        case 50: titleRef= document.getElementById('item-50');break;
+        case 51: titleRef= document.getElementById('item-51');break;
+        case 52: titleRef= document.getElementById('item-52');break;
+      }
+      if(num == 0){
+          titleRef.innerHTML="<span style='font-size:50pt; color:#123993; margin-top:600px; margin-left:300px; z-index:2;'>"+display+"의 "+"<br>"+"리뷰가 아직 없습니다.</span>";
+        }else{
+          resviewRef =  database.ref("Exhibition/"+title+"/"+num);
+          resviewRef.on('value', function(snapshot){
+            var resultReview = snapshot.val();
+            titleRef.innerHTML="<span style='font-size:65pt; color:#123993; margin-top:200px; margin-left:auto; margin-right:auto; z-index:2;'>"+
+                                    "<span style='color:white;'>"+display+"</span>"+"<br><br><br><br>"
+                                    +"<span style='font-size:65pt; width:980px; height:300px;'>"+resultReview.comment+"</span><br><br>"
+                                    +"<span style='display:inline-block; margin-top:150px; font-size:50pt; width:1000px'>"+resultReview.name+"</span>";
+          });
+        }
+      }
+
+    function checkCnt(title){
+      var display;
+      var limit_num;
+      var cntNameRef = database.ref("Exhibition/"+title);
+      cntNameRef.on('value', function(snapshot){
+        var result = snapshot.val();
+        limit_num = result.cnt;
+        display = result.display;
+        getList(limit_num, title, display);
+    });
+  }
+
+    var forInter = setInterval(function() {
+      for (var i = 0; i < 53; i++) {
+        checkCnt(i);
+      }
+    }, 100);
+
+    function printTime() {
+                  var clock = document.getElementById("clock");            // 출력할 장소 선택
+                  var now = new Date();                                                  // 현재시간
+                  var nowTime = now.getHours() + "시  " + now.getMinutes() + "분  "+now.getSeconds() + "초";
+                  clock.innerHTML = nowTime;           // 현재시간을 출력
+                  setTimeout("printTime()",1000);         // setTimeout(“실행할함수”,시간) 시간은1초의 경우 1000
+    }
+
+    window.onload = function() {                         // 페이지가 로딩되면 실행
+                printTime();
+  }
+</script>
+<body>
+  <center>
+  <table>
+    <tr>
+      <td style="font-size:90pt;"><font color='#123993' face='Noto Sans CJK KR'>2018 Newmedia IT Show</font></td>
+      <td style="font-size:60pt; text-align:right;">
+        <font color='#123993' face='Noto Sans CJK KR'>현재시간은 <span id="clock"></span> 입니다
+        <br> Dday +1</font>
+    </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <script type="text/javascript">
+          var pausecontent=new Array();var pausecontent2=new Array();var pausecontent3=new Array();var pausecontent4=new Array();
+          var pausecontent5=new Array();var pausecontent6=new Array();var pausecontent7=new Array();var pausecontent8=new Array();
+          var pausecontent9=new Array();var pausecontent10=new Array();
+
+          function getRank(suck, exhibition, avg){
+              var rankList = "";
+              rankList = '<div class="rankList"><div>'+
+                          +suck+'위 '+exhibition+'</div><br>';
+              switch (suck) {
+                case 1: pausecontent[0] = rankList; break;
+                case 2: pausecontent2[0] = rankList; break;
+                case 3: pausecontent3[0] = rankList; break;
+                case 4: pausecontent4[0] = rankList; break;
+                case 5: pausecontent5[0] = rankList; break;
+                case 6: pausecontent6[0] = rankList; break;
+                case 7: pausecontent7[0] = rankList; break;
+                case 8: pausecontent8[0] = rankList; break;
+                case 9: pausecontent9[0] = rankList; break;
+                case 10: pausecontent10[0] = rankList; break;
+              }
+          }
+
+          var getRankInter = setInterval(function () {
+            console.log("call of interval");
+            var exhibition="", avg=0;
+            for (var num = 1; num <= 10; num++){
+              var cntNameRef = database.ref("Rank/"+num);
+              cntNameRef.on('value', function(snapshot){
+                var result = snapshot.val();
+                getRank(num, result.exhibition, result.avg);
+              });
+            }
+          },25000);
+          function pausescroller(content, divId, divClass, delay){
+
+            this.content=content; //message array content
+            this.tickerid=divId; //ID of ticker div to display information
+            this.delay=delay; //Delay between msg change, in miliseconds.
+            this.mouseoverBol=0; //Boolean to indicate whether mouse is currently over scroller (and pause it if it is)
+            this.hiddendivpointer=1; //index of message array for hidden div
+            document.write('<div align="center" id="'+divId+'" class="'+divClass+'" style="position: relative; overflow: hidden"><div class="innerDiv" style="position: absolute; width: 100%" id="'+divId+'1">'+content[0]+'</div><div class="innerDiv" style="position: absolute; width: 600px; visibility: hidden" id="'+divId+'2">'+content[1]+'</div></div>')
+            var scrollerinstance=this
+            if (window.addEventListener) //run onload in DOM2 browsers
+            window.addEventListener("load", function(){scrollerinstance.initialize()}, false);
+            else if (window.attachEvent) //run onload in IE5.5+
+            window.attachEvent("onload", function(){scrollerinstance.initialize()});
+            else if (document.getElementById) //if legacy DOM browsers, just start scroller after 0.5 sec
+            setTimeout(function(){scrollerinstance.initialize()}, 500);
+          }
+
+          pausescroller.prototype.initialize=function(){
+
+            this.tickerdiv=document.getElementById(this.tickerid);
+            this.visiblediv=document.getElementById(this.tickerid+"1");
+            this.hiddendiv=document.getElementById(this.tickerid+"2");
+            this.visibledivtop=parseInt(pausescroller.getCSSpadding(this.tickerdiv));
+            this.visiblediv.style.width=this.hiddendiv.style.width=this.tickerdiv.offsetWidth-(this.visibledivtop*2)+"px"
+            this.getinline(this.visiblediv, this.hiddendiv)
+            this.hiddendiv.style.visibility="visible"
+            var scrollerinstance=this
+            document.getElementById(this.tickerid).onmouseover=function(){scrollerinstance.mouseoverBol=1}
+            document.getElementById(this.tickerid).onmouseout=function(){scrollerinstance.mouseoverBol=0}
+            if (window.attachEvent) //Clean up loose references in IE
+            window.attachEvent("onunload", function(){scrollerinstance.tickerdiv.onmouseover=scrollerinstance.tickerdiv.onmouseout=null})
+            setTimeout(function(){scrollerinstance.animateup()}, this.delay);
+          }
+
+          pausescroller.prototype.animateup=function(){
+            var scrollerinstance=this
+            if (parseInt(this.hiddendiv.style.top)>(this.visibledivtop+5)){
+            this.visiblediv.style.top=parseInt(this.visiblediv.style.top)-7+"px";
+            this.hiddendiv.style.top=parseInt(this.hiddendiv.style.top)-10+"px";
+            setTimeout(function(){scrollerinstance.animateup()}, 50);
+            }else{
+              this.getinline(this.hiddendiv, this.visiblediv);
+              this.swapdivs();
+              setTimeout(function(){scrollerinstance.setmessage()}, this.delay);
+            }
+          }
+          pausescroller.prototype.swapdivs=function(){
+            var tempcontainer=this.visiblediv;
+            this.visiblediv=this.hiddendiv;
+            this.hiddendiv=tempcontainer;
+          }
+          pausescroller.prototype.getinline=function(div1, div2){
+            div1.style.top=this.visibledivtop+"px";
+            div2.style.top=Math.max(div1.parentNode.offsetHeight, div1.offsetHeight)+"px";
+          }
+          pausescroller.prototype.setmessage=function(){
+            var scrollerinstance=this
+            if (this.mouseoverBol==1)setTimeout(function(){scrollerinstance.setmessage()}, 50);
+            else{
+                var i=this.hiddendivpointer
+                var ceiling=this.content.length
+                this.hiddendivpointer=(i+1>ceiling-1)? 0 : i+1
+                this.hiddendiv.innerHTML=this.content[this.hiddendivpointer]
+                this.animateup()
+              }
+            }
+          pausescroller.getCSSpadding=function(tickerobj){ //get CSS padding value, if any
+            if (tickerobj.currentStyle)
+            return tickerobj.currentStyle["paddingTop"]
+            else if (window.getComputedStyle) //if DOM2
+            return window.getComputedStyle(tickerobj, "").getPropertyValue("padding-top")
+            else
+            return 0
+          }
+            document.write("<br/>");
+            document.write("<div id='rank' align='center' style='border: solid 1px #fcb811;'>");
+            document.write("<p style='font-size:50pt; color:#123993;'>실시간 평점 순위</p>");
+            document.write("<br/>");
+            document.write("<hr width='500px' style='border: solid 3px #fcb811;'>");
+            document.write("<br/>");
+            new pausescroller(pausecontent, "pscroller1", "someclass", 3505);
+            new pausescroller(pausecontent2, "pscroller2", "someclass", 3505);
+            new pausescroller(pausecontent3, "pscroller3", "someclass", 3505);
+            new pausescroller(pausecontent4, "pscroller4", "someclass", 3505);
+            new pausescroller(pausecontent5, "pscroller5", "someclass", 3505);
+            new pausescroller(pausecontent6, "pscroller6", "someclass", 3505);
+            new pausescroller(pausecontent7, "pscroller7", "someclass", 3505);
+    //        new pausescroller(pausecontent8, "pscroller8", "someclass", 3505);
+            new pausescroller(pausecontent9, "pscroller9", "someclass", 3505);
+            new pausescroller(pausecontent10, "pscroller10", "someclass", 3505);
+            document.write("</div>");
+        </script>
+      </td>
+    <!--리뷰창-->
+    <td width="3000" height="2000"><br><br><br>
+      <div id="carousel" class="wrap">
+        <div id="item-0" class="second"></div><div id="item-1" class="second"></div><div id="item-2"></div>
+        <div id="item-3"></div><div id="item-4"></div><div id="item-5"></div>
+        <div id="item-6"></div><div id="item-7"></div><div id="item-8"></div>
+        <div id="item-9"></div><div id="item-10"></div><div id="item-11"></div>
+        <div id="item-12"></div><div id="item-13"></div><div id="item-14"></div>
+        <div id="item-15"></div><div id="item-16"></div><div id="item-17"></div>
+        <div id="item-18"></div><div id="item-19"></div><div id="item-20"></div>
+        <div id="item-21"></div><div id="item-22"></div><div id="item-23"></div>
+        <div id="item-24"></div><div id="item-25"></div><div id="item-26"></div>
+        <div id="item-27"></div><div id="item-28"></div><div id="item-29"></div>
+        <div id="item-30"></div><div id="item-31"></div><div id="item-32"></div>
+        <div id="item-33"></div><div id="item-34"></div><div id="item-35"></div>
+        <div id="item-36"></div><div id="item-37"></div><div id="item-38"></div>
+        <div id="item-39"></div><div id="item-40"></div><div id="item-41"></div>
+        <div id="item-42"></div><div id="item-43"></div><div id="item-44"></div>
+        <div id="item-45"></div><div id="item-46"></div><div id="item-47"></div>
+        <div id="item-48"></div><div id="item-49"></div><div id="item-50"></div>
+        <div id="item-51"></div><div id="item-52"></div>
+      </div>
+      <!--리뷰jquery -->
+      <script type="text/javascript">
+        $(document).ready(function () {
+          var carousel = $("#carousel").waterwheelCarousel({
+            flankingItems: 3,
+            movingToCenter: function ($item) {
+              $('#callback-output').prepend('movingToCenter: ' + $item.attr('id') + '<br/>');
+            },
+            movedToCenter: function ($item) {
+              $('#callback-output').prepend('movedToCenter: ' + $item.attr('id') + '<br/>');
+            },
+            movingFromCenter: function ($item) {
+              $('#callback-output').prepend('movingFromCenter: ' + $item.attr('id') + '<br/>');
+            },
+            movedFromCenter: function ($item) {
+              $('#callback-output').prepend('movedFromCenter: ' + $item.attr('id') + '<br/>');
+            },
+            clickedCenter: function ($item) {
+              $('#callback-output').prepend('clickedCenter: ' + $item.attr('id') + '<br/>');
+            }
+          });
+          $('#prev').bind('click', function () {
+            carousel.prev();
+            return false;
+          });
+          $('#next').bind('click', function () {
+            carousel.next();
+            return false;
+          });
+          $('#reload').bind('click', function () {
+            newOptions = eval("(" + $('#newoptions').val() + ")");
+            carousel.reload(newOptions);
+            return false;
+          });
+        });
+      </script>
+    </td>
+
+    <!--랭킹td-->
+
+  </tr></table>
+</center>
+
+<!-- 새로운 리뷰창 -->
+  <input type="hidden" onclick="clicktest();" value="버튼" />
+  <div id="mask"></div>
+  <!-- 판 div -->
+  <div style="width: 800px; height: 300px; position: absolute; top:42%; left: 41%; display: none; z-index:10001;" id="test" class="texteffect">
+    <h5 style="font-family:'Noto Sans CJK KR';">
+      <span>리</span>
+      <span>뷰</span>
+      <span>가</span>
+      <span>도</span>
+      <span>착</span>
+      <span>했</span>
+      <span>어</span>
+      <span>요</span>
+      <span>!</span>
+    </h5>
+    <input type="hidden" onclick="clicktest2();" value="버튼" />
+  </div>
+  <div style="width: 1000px; height: 1100px; position: absolute; top:32%; left:39%; display: none; z-index:10001;" id="test2" class="texteffect2">
+    <h5 style="font-family:'Noto Sans CJK KR';">
+      <div id="root"></div></h5>
+    <input type="hidden" onclick="btnexit();" value="지우기" />
+  </div>
+<!-- 새로운 리뷰 jquery -->
+<p align="center" style="font-size:5em; color:#123993;">Made by. 전시메이트</font></a>
+  </body>
+</html>

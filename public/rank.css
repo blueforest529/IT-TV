@@ -1,0 +1,33 @@
+/*Example CSS for the two demo scrollers*/
+
+/*랭킹 1~10위 모두 포함된 div id*/
+#rank{
+  font-family: 'Noto Sans CJK KR';
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  width: 700px;
+  height: 1550px
+}
+/*#4e97d1;#fce500;*/
+
+/*랭킹 각각의 div id*/
+#pscroller1{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller2{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller3{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller4{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller5{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller6{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller7{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller8{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller9{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+#pscroller10{font-size: 40pt;width: 600px;height: 50px;padding-bottom: 60px;}
+
+#pscroller2 a{
+text-decoration: none;
+}
+/*랭킹들의 div class*/
+.someclass{
+
+}
