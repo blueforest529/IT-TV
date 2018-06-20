@@ -1,11 +1,11 @@
 .texteffect2{
-  background-image: url(images/4.png);
+  background-image: url(images/3.png);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .texteffect{
-    background-image: url(images/5.png);
+  background-image: url(images/5.png);
   display: flex;
   color : #ff0000;
   justify-content: center;
